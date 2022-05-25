@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "230974554208",
+    "project_id": "socialgaming2022",
+    "storage_bucket": "socialgaming2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230974554208:android:245af653835ee5509a0305",
+        "android_client_info": {
+          "package_name": "com.example.socialgaming2022"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230974554208-66osng900gh8to8qbolvihrcmpmsac67.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmObwxktCqnTI8ruqlW_gtt6jGWhgMm9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230974554208-66osng900gh8to8qbolvihrcmpmsac67.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

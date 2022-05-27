@@ -1,15 +1,25 @@
-package com.example.socialgaming2022;
+package com.example.socialgaming2022.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.socialgaming2022.R;
+import com.example.socialgaming2022.helper.PlayerVolleyHelper;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class WelcomeActivity extends AppCompatActivity {
+    private static final String TAG = "WelcomeActivity";
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -20,12 +30,32 @@ public class WelcomeActivity extends AppCompatActivity {
         // Get a firebaseAuth instance
         firebaseAuth = FirebaseAuth.getInstance();
 
+        addUserNicknameToWelcomeText();
+
         // Get buttons
         Button mapButton = findViewById(R.id.mapButton);
         Button logoutButton = findViewById(R.id.logoutButton);
 
         mapButton.setOnClickListener(view -> switchToMapActivity());
         logoutButton.setOnClickListener(view -> logoutUser());
+    }
+
+    private void addUserNicknameToWelcomeText() {
+        // Get EditText
+        TextView welcomeText = findViewById(R.id.welcomeText);
+
+        PlayerVolleyHelper playerVolleyHelper = new PlayerVolleyHelper(this);
+        playerVolleyHelper.getPlayerByFirebaseUID(firebaseAuth.getCurrentUser().getUid(),
+                response -> {
+                    // Add the nickname to welcome text
+                    try {
+                        welcomeText.setText(welcomeText.getText() + " " + response.getString("nickname"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.w(TAG, "addUserNicknameToWelcomeText: Did not get nickname from backend!", error)
+        );
     }
 
     private void logoutUser() {

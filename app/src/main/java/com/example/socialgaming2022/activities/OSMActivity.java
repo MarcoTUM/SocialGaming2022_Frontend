@@ -180,9 +180,10 @@ public class OSMActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 JsonElement activePlayers = gson.toJsonTree(snapshot.getValue());
 
-                // Clear all markers
+                // Clear all old markers
                 mapView.getOverlays().clear();
 
+                // Add new markers
                 for(Map.Entry<String, JsonElement> activePlayer : activePlayers.getAsJsonObject().entrySet()) {
                     // If FirebaseUID is equal to current user -> skip
                     if(firebaseAuth.getCurrentUser() != null && activePlayer.getKey().equals(firebaseAuth.getCurrentUser().getUid())) {

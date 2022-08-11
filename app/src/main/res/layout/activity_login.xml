@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#969696"
-    tools:context=".activities.MainActivity">
+    android:background="@color/background"
+    tools:context=".activities.LoginActivity">
 
     <TextView
         android:id="@+id/loginTextView"
@@ -29,7 +29,6 @@
 
         android:layout_marginTop="150dp"
         android:text="E-Mail"
-        android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_marginStart="10dp"
         />
@@ -53,7 +52,7 @@
 
         android:layout_marginTop="250dp"
         android:text="Password"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:layout_marginStart="10dp"
         />

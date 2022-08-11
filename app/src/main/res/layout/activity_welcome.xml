@@ -4,7 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".activities.WelcomeActivity">
+
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/orange"
+        android:text="Profile" />
+
+    <Button
+        android:id="@+id/friendsButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:backgroundTint="@color/purple_500"
+        android:text="Friends" />
 
     <TextView
         android:id="@+id/welcomeText"

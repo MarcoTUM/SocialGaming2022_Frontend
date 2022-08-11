@@ -35,4 +35,13 @@ public class PlayerVolleyHelper {
         JsonObjectRequest objRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, responseListener, errorListener);
         requestQueue.add(objRequest);
     }
+
+    public void deleteUserByFirebaseUID(String firebaseUID, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener){
+        // Rest API endpoint
+        String url = baseURL + "/player/" + firebaseUID;
+
+        // Create the DELETE request
+        JsonObjectRequest objRequest = new JsonObjectRequest(Request.Method.DELETE, url, null, responseListener, errorListener);
+        requestQueue.add(objRequest);
+    }
 }

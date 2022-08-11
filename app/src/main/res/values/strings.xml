@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SocialGaming2022</string>
+    <string name="deleteButton">Delete Account</string>
+    <string name="backButton">Back</string>
+    <string name="display_name">"Display name: %1$s"</string>
+    <string name="nickname">Nickname: %1$s</string>
+    <string name="games_played">Games played: %1$i</string>
+    <string name="games_won">Games won: %1$i</string>
+    <string name="dark_theme">Dark theme </string>
 </resources>

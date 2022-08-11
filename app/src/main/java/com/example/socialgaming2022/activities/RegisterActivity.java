@@ -1,8 +1,5 @@
 package com.example.socialgaming2022.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,17 +7,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.socialgaming2022.R;
 import com.example.socialgaming2022.helper.PlayerVolleyHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
@@ -56,13 +58,32 @@ public class RegisterActivity extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
             if(task.isSuccessful()) {
                 Log.d(TAG, "registerUser: User successfully registered in firebase!");
-                registerUserInSpringBackend(firebaseAuth.getCurrentUser().getUid(), nickname);
+                registerUserInSpringBackend(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid(), nickname);
                 Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
             } else {
                 Log.d(TAG, "registerUser: Failed to register user!", task.getException());
                 Toast.makeText(RegisterActivity.this, "Registration failed!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Create new user profile
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(nickname)
+                .build();
+
+        // Get current Firebase user
+        FirebaseUser currentUser = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser());
+
+        // Update user profile
+        currentUser.updateProfile(profileUpdates)
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User profile updated.");
+                    }
+                }
+            });
     }
 
     private void registerUserInSpringBackend(String firebaseUID, String nickname) {
@@ -72,6 +93,8 @@ public class RegisterActivity extends AppCompatActivity {
             playerJSON.put("firebaseUID", firebaseUID);
             playerJSON.put("nickname", nickname);
             playerJSON.put("friendsFirebaseUIDs", new JSONArray());
+            playerJSON.put("gamesPlayed", 0);
+            playerJSON.put("gamesWon", 0);
 
             PlayerVolleyHelper playerVolleyHelper = new PlayerVolleyHelper(this);
             playerVolleyHelper.postRegisterNewUser(playerJSON,
@@ -83,17 +106,14 @@ public class RegisterActivity extends AppCompatActivity {
                         Log.d(TAG, "registerUserInSpringBackend: Failed to register user in Spring backend!", error);
 
                         // Delete the Firebase account
-                        firebaseAuth.getCurrentUser().delete()
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()) {
-                                            Log.d(TAG, "Firebase user account deleted, after registerUserInSpringBackend failed!");
-                                        } else {
-                                            Log.d(TAG, "Firebase user not account deleted, after registerUserInSpringBackend failed!", task.getException());
-                                            Log.d(TAG, "Additional steps required!");
-                                            // Additional steps required
-                                        }
+                        Objects.requireNonNull(firebaseAuth.getCurrentUser()).delete()
+                                .addOnCompleteListener(task -> {
+                                    if(task.isSuccessful()) {
+                                        Log.d(TAG, "Firebase user account deleted, after registerUserInSpringBackend failed!");
+                                    } else {
+                                        Log.d(TAG, "Firebase user not account deleted, after registerUserInSpringBackend failed!", task.getException());
+                                        Log.d(TAG, "Additional steps required!");
+                                        // Additional steps required
                                     }
                                 });
                     }
@@ -104,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void switchToMainActivity() {
-        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

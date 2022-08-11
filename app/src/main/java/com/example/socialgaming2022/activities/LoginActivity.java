@@ -13,7 +13,7 @@ import com.example.socialgaming2022.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private FirebaseAuth firebaseAuth;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Set the activity content from a layout source
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         // Get a firebaseAuth instance
         firebaseAuth = FirebaseAuth.getInstance();
@@ -60,18 +60,18 @@ public class MainActivity extends AppCompatActivity {
                     switchToWelcomeActivity();
                 } else {
                     Log.d(TAG, "loginUser: Failed to login!", task.getException());
-                    Toast.makeText(MainActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
                 }
         });
     }
 
     private void switchToWelcomeActivity() {
-        Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+        Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
         startActivity(intent);
     }
 
     private void switchToRegisterActivity() {
-        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 }

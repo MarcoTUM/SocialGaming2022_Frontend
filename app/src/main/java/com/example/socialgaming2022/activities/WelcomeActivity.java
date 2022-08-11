@@ -52,7 +52,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         // Add nickname to welcome text
-        welcomeText.setText(currentUser.getDisplayName());
+        welcomeText.setText(getString(R.string.welcome, currentUser.getDisplayName()));
     }
 
     private void logoutUser() {

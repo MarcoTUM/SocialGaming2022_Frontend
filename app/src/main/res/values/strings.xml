@@ -4,7 +4,8 @@
     <string name="backButton">Back</string>
     <string name="display_name">"Display name: %1$s"</string>
     <string name="nickname">Nickname: %1$s</string>
-    <string name="games_played">Games played: %1$i</string>
-    <string name="games_won">Games won: %1$i</string>
+    <string name="games_played">Games played: %1$d</string>
+    <string name="games_won">Games won: %1$d</string>
     <string name="dark_theme">Dark theme </string>
+    <string name="welcome">Welcome %1$s</string>
 </resources>

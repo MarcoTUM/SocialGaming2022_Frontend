@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 
+import java.util.Objects;
+
 public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
     private FirebaseAuth firebaseAuth;
@@ -43,11 +45,11 @@ public class ProfileActivity extends AppCompatActivity {
         darkThemeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
+                if(isChecked)
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                } else {
+                else
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
+                compoundButton.setChecked(isChecked);
             }
         });
 
@@ -100,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete", (dialog, which) -> {
             // Delete account in MongoDB
             PlayerVolleyHelper playerVolleyHelper = new PlayerVolleyHelper(this);
-            playerVolleyHelper.deleteUserByFirebaseUID(firebaseAuth.getCurrentUser().getUid(),
+            playerVolleyHelper.deleteUserByFirebaseUID(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid(),
                     response -> {
                         // Delete the FirebaseAuth account
                         firebaseAuth.getCurrentUser().delete()
@@ -118,9 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
                         Toast.makeText(ProfileActivity.this, "Deleting user account failed.", Toast.LENGTH_SHORT).show();
                     });
         });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", (dialog, which) -> {
-            dialog.dismiss();
-        });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", (dialog, which) -> dialog.dismiss());
         alertDialog.show();
     }
 }

@@ -58,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
             if(task.isSuccessful()) {
                 Log.d(TAG, "registerUser: User successfully registered in firebase!");
+                updateFirebaseUserProfile(nickname);
                 registerUserInSpringBackend(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid(), nickname);
                 Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
             } else {
@@ -65,7 +66,9 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "Registration failed!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void updateFirebaseUserProfile(String nickname) {
         // Create new user profile
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(nickname)

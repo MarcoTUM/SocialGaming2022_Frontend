@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:backgroundTint="@color/orange"
-        android:text="Profile" />
+        android:text="@string/profile" />
 
     <Button
         android:id="@+id/friendsButton"
@@ -25,13 +24,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
         android:backgroundTint="@color/purple_500"
-        android:text="Friends" />
+        android:text="@string/friends" />
 
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
         android:textSize="26sp"
         android:textStyle="bold"
         android:text="@string/welcome" />
@@ -42,9 +42,19 @@
         android:layout_height="wrap_content"
 
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="300dp"
         android:backgroundTint="@color/teal_700"
-        android:text="Map" />
+        android:text="@string/map" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="500dp"
+        android:backgroundTint="#101010"
+        android:text="@string/settings" />
 
     <Button
         android:id="@+id/logoutButton"
@@ -54,5 +64,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="600dp"
         android:backgroundTint="#2196F3"
-        android:text="Logout" />
+        android:text="@string/logout" />
 </RelativeLayout>

@@ -8,13 +8,13 @@
     tools:context=".activities.ProfileActivity">
 
     <TextView
-        android:id="@+id/loginTextView"
+        android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_marginTop="20dp"
-        android:text="@string/profile"
-        android:textColor="@color/black"
+        android:text="@string/settings"
+        android:textColor="@color/text_color"
         android:textSize="40sp"
         android:textStyle="bold"
         android:fontFamily="cursive"
@@ -23,58 +23,35 @@
         />
 
     <TextView
-        android:id="@+id/displayName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="20dp"
-        android:text="@string/display_name"
-        android:textSize="25sp" />
-
-    <TextView
         android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:text="@string/nickname"
+        android:text="@string/language"
+        android:textColor="@color/text_color"
         android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/gamesPlayed"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/languageSpinner"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="250dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="@string/games_played"
-        android:textSize="25sp" />
-
-    <TextView
-        android:id="@+id/gamesWon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="300dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="@string/games_won"
-        android:textSize="25sp" />
-
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="500dp"
-        android:backgroundTint="#FF0000"
-        android:text="@string/deleteButton" />
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="100dp" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/darkThemeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp"
+        android:text="@string/dark_theme"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/backToWelcomeButton"

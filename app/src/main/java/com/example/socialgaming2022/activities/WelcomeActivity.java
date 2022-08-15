@@ -30,11 +30,13 @@ public class WelcomeActivity extends AppCompatActivity {
         Button profileButton = findViewById(R.id.profileButton);
         Button friendsButton = findViewById(R.id.friendsButton);
         Button mapButton = findViewById(R.id.mapButton);
+        Button settingsButton = findViewById(R.id.settingsButton);
         Button logoutButton = findViewById(R.id.logoutButton);
 
         profileButton.setOnClickListener(view -> switchToProfileActivity());
         friendsButton.setOnClickListener(view -> switchToFriendsActivity());
         mapButton.setOnClickListener(view -> switchToMapActivity());
+        settingsButton.setOnClickListener(view -> startActivity(new Intent(this, SettingsActivity.class)));
         logoutButton.setOnClickListener(view -> logoutUser());
     }
 

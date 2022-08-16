@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SocialGaming2022</string>
+    <string name="deleteButton">Account löschen</string>
+    <string name="backButton">Zurück</string>
+    <string name="display_name">"Display Name: %1$s"</string>
+    <string name="nickname">Nickname: %1$s</string>
+    <string name="userName">Name</string>
+    <string name="games_played">Gespielte Spiele: %1$d</string>
+    <string name="games_won">Gewonnene Spiele: %1$d</string>
+    <string name="dark_theme">Dunkles Design </string>
+    <string name="welcome">Willkommen %1$s</string>
+    <string name="settings">Einstellungen</string>
+    <string name="profile">Profil</string>
+    <string name="map">Karte</string>
+    <string name="logout">Abmelden</string>
+    <string name="friends">Freunde</string>
+    <string name="login">Anmeldung</string>
+    <string name="password">Passwort</string>
+    <string name="register">Registrieren</string>
+    <string name="registerAccount">Konto registrieren</string>
+    <string name="signIn">Anmelden</string>
+    <string name="currency">Währung: %1$s</string>
+</resources>

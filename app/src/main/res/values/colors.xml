@@ -23,5 +23,6 @@
     <color name="gray40">#404040</color>
 
     <color name="background">#FEFEFE</color>
-    <color name="text_color">#000000</color>
+    <color name="textColor">#000000</color>
+    <color name="textColorHint">#757575</color>
 </resources>

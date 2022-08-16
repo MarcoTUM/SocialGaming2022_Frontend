@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         // If the user is not logged in
-        if(firebaseUser == null) {
+        if (firebaseUser == null) {
             // Get button via id
             Button loginButton = findViewById(R.id.loginButton);
             Button registerButton = findViewById(R.id.registerButton);
@@ -55,13 +55,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUser(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
-                if(task.isSuccessful()) {
-                    Log.d(TAG, "loginUser: User successfully logged in!");
-                    switchToWelcomeActivity();
-                } else {
-                    Log.d(TAG, "loginUser: Failed to login!", task.getException());
-                    Toast.makeText(LoginActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
-                }
+            if (task.isSuccessful()) {
+                Log.d(TAG, "loginUser: User successfully logged in!");
+                switchToWelcomeActivity();
+            } else {
+                Log.d(TAG, "loginUser: Failed to login!", task.getException());
+                Toast.makeText(LoginActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

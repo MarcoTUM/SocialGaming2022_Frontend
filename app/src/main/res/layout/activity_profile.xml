@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,16 +10,14 @@
         android:id="@+id/loginTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_marginTop="20dp"
-        android:text="@string/profile"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:fontFamily="cursive"
-        android:layout_marginStart="10dp"
         android:layout_centerHorizontal="true"
-        />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="cursive"
+        android:text="@string/profile"
+        android:textColor="@color/textColor"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/displayName"
@@ -31,6 +28,7 @@
         android:layout_marginTop="150dp"
         android:layout_marginEnd="20dp"
         android:text="@string/display_name"
+        android:textColor="@color/textColor"
         android:textSize="25sp" />
 
     <TextView
@@ -38,10 +36,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="200dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="20dp"
         android:text="@string/nickname"
+        android:textColor="@color/textColor"
         android:textSize="25sp" />
 
     <TextView
@@ -49,10 +48,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="250dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="250dp"
         android:layout_marginEnd="20dp"
         android:text="@string/games_played"
+        android:textColor="@color/textColor"
         android:textSize="25sp" />
 
     <TextView
@@ -60,10 +60,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="300dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="300dp"
         android:layout_marginEnd="20dp"
         android:text="@string/games_won"
+        android:textColor="@color/textColor"
         android:textSize="25sp" />
 
     <Button
@@ -73,8 +74,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
         android:layout_marginTop="500dp"
-        android:backgroundTint="#FF0000"
-        android:text="@string/deleteButton" />
+        android:backgroundTint="#CF0000"
+        android:text="@string/deleteButton"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/backToWelcomeButton"

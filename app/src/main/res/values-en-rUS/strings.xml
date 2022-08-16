@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="e_mail" translatable="false">E-Mail</string>
     <string name="app_name">SocialGaming2022</string>
     <string name="deleteButton">Delete Account</string>
     <string name="backButton">Back</string>

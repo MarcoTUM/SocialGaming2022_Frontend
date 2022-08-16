@@ -2,20 +2,16 @@ package com.example.socialgaming2022.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.socialgaming2022.R;
 import com.example.socialgaming2022.helper.PlayerVolleyHelper;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -38,7 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
         final Button deleteButton = findViewById(R.id.deleteButton);
 
         // Add click listeners to buttons
-        backToWelcomeButton.setOnClickListener(view -> startActivity(new Intent(ProfileActivity.this, WelcomeActivity.class)));
+        backToWelcomeButton.setOnClickListener(view -> startActivity(new Intent(this, WelcomeActivity.class)));
         deleteButton.setOnClickListener(view -> deleteUserAccount());
 
         // Get a firebaseAuth instance
@@ -48,11 +44,11 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
 
         // If the user is logged in display profile information
-        if(firebaseUser != null)
+        if (firebaseUser != null)
             displayProfileInformation();
-        // Otherwise send the user back to login
+            // Otherwise send the user back to login
         else
-            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
     }
 
     private void displayProfileInformation() {
@@ -68,19 +64,19 @@ public class ProfileActivity extends AppCompatActivity {
         // Get other information from MongoDB
         PlayerVolleyHelper playerVolleyHelper = new PlayerVolleyHelper(this);
         playerVolleyHelper.getPlayerByFirebaseUID(firebaseUser.getUid(),
-        response -> {
-            try {
-                // Set text views to player data
-                nickname.setText(getString(R.string.nickname, response.getString("nickname")));
-                gamesPlayed.setText(getString(R.string.games_played, response.getInt("gamesPlayed")));
-                gamesWon.setText(getString(R.string.games_won, response.getInt("gamesWon")));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> {
+                response -> {
+                    try {
+                        // Set text views to player data
+                        nickname.setText(getString(R.string.nickname, response.getString("nickname")));
+                        gamesPlayed.setText(getString(R.string.games_played, response.getInt("gamesPlayed")));
+                        gamesWon.setText(getString(R.string.games_won, response.getInt("gamesWon")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
                     Log.w(TAG, "displayProfileInformation: ", error);
                     Toast.makeText(ProfileActivity.this, "Could not receive profile information from database!", Toast.LENGTH_SHORT).show();
-        });
+                });
     }
 
     private void deleteUserAccount() {

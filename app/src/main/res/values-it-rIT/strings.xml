@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SocialGaming2022</string>
+    <string name="deleteButton">Elimina account</string>
+    <string name="backButton">Indietro</string>
+    <string name="display_name">Nome: %1$s</string>
+    <string name="nickname">Nickname: %1$s</string>
+    <string name="userName">Nome</string>
+    <string name="games_played">Giochi giocati: %1$d</string>
+    <string name="games_won">Giochi vinti: %1$d</string>
+    <string name="dark_theme">Tema scuro </string>
+    <string name="welcome">Benvenuto %1$s</string>
+    <string name="settings">Impostazioni</string>
+    <string name="profile">Profilo</string>
+    <string name="map">Mappa</string>
+    <string name="logout">Esci</string>
+    <string name="friends">Amici</string>
+    <string name="login">Accedi</string>
+    <string name="password">Password</string>
+    <string name="register">Registrati</string>
+    <string name="registerAccount">Registra account</string>
+    <string name="signIn">Accedi</string>
+    <string name="currency">Moneta: %1$s</string>
+</resources>

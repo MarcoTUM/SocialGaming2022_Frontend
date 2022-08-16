@@ -48,7 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
         // If there is currently no user logged in switch back to MainActivity
-        if(currentUser == null) {
+        if (currentUser == null) {
             switchToLoginActivity();
             return;
         }

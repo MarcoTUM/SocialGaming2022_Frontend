@@ -1,21 +1,20 @@
 package com.example.socialgaming2022.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.socialgaming2022.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -23,7 +22,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.location.Priority;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,6 +43,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 public class OSMActivity extends AppCompatActivity {
     private static final String TAG = "OSMActivity";
@@ -58,7 +58,6 @@ public class OSMActivity extends AppCompatActivity {
 
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
-    private final long LOCATION_REQUEST_INTERVAL = 5000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +85,7 @@ public class OSMActivity extends AppCompatActivity {
         //it 'should' ensure that the map has a writable location for the map cache, even without permissions
         //if no tiles are displayed, you can try overriding the cache path using Configuration.getInstance().setCachePath
         //see also StorageUtils
-        //note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's tile servers will get you banned based on this string
+        //note, the load method also sets the HTTP User Agent to your application's package name, abusing the tile servers of OSM will get you banned based on this string
 
         //inflate and create the map
         setContentView(R.layout.activity_osmactivity);
@@ -130,7 +129,8 @@ public class OSMActivity extends AppCompatActivity {
     @SuppressLint("MissingPermission")
     private void requestLocationUpdate() {
         LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        locationRequest.setPriority(Priority.PRIORITY_BALANCED_POWER_ACCURACY);
+        long LOCATION_REQUEST_INTERVAL = 5000;
         locationRequest.setInterval(LOCATION_REQUEST_INTERVAL);
 
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
@@ -139,19 +139,16 @@ public class OSMActivity extends AppCompatActivity {
     @SuppressLint("MissingPermission")
     private void updateFirebaseRealtimeDatabasePlayerLocation() {
         fusedLocationClient.getLastLocation()
-            .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
+                .addOnSuccessListener(this, location -> {
                     // Got last known location. In some rare situations this can be null.
                     if (location != null) {
                         // Save current location into Firebase real-time database
-                        if(firebaseAuth.getCurrentUser() != null) {
+                        if (firebaseAuth.getCurrentUser() != null) {
                             activePlayers.child(firebaseAuth.getCurrentUser().getUid()).child("latitude").setValue(location.getLatitude());
                             activePlayers.child(firebaseAuth.getCurrentUser().getUid()).child("longitude").setValue(location.getLongitude());
                         }
                     }
-                }
-            });
+                });
 
         // Get player location updates
         locationCallback = new LocationCallback() {
@@ -160,8 +157,8 @@ public class OSMActivity extends AppCompatActivity {
                 super.onLocationResult(locationResult);
 
                 // Save new location into Firebase real-time database
-                if(firebaseAuth.getCurrentUser() != null) {
-                    activePlayers.child(firebaseAuth.getCurrentUser().getUid()).child("latitude").setValue(locationResult.getLastLocation().getLatitude());
+                if (firebaseAuth.getCurrentUser() != null) {
+                    activePlayers.child(firebaseAuth.getCurrentUser().getUid()).child("latitude").setValue(Objects.requireNonNull(locationResult.getLastLocation()).getLatitude());
                     activePlayers.child(firebaseAuth.getCurrentUser().getUid()).child("longitude").setValue(locationResult.getLastLocation().getLongitude());
                 }
             }
@@ -184,9 +181,9 @@ public class OSMActivity extends AppCompatActivity {
                 mapView.getOverlays().clear();
 
                 // Add new markers
-                for(Map.Entry<String, JsonElement> activePlayer : activePlayers.getAsJsonObject().entrySet()) {
+                for (Map.Entry<String, JsonElement> activePlayer : activePlayers.getAsJsonObject().entrySet()) {
                     // If FirebaseUID is equal to current user -> skip
-                    if(firebaseAuth.getCurrentUser() != null && activePlayer.getKey().equals(firebaseAuth.getCurrentUser().getUid())) {
+                    if (firebaseAuth.getCurrentUser() != null && activePlayer.getKey().equals(firebaseAuth.getCurrentUser().getUid())) {
                         addPlayerMarkerToMap();
                     } else {
                         // For every other user add a green marker to map
@@ -208,7 +205,7 @@ public class OSMActivity extends AppCompatActivity {
         JsonElement latitude = activePlayer.getValue().getAsJsonObject().get("latitude");
         JsonElement longitude = activePlayer.getValue().getAsJsonObject().get("longitude");
 
-        if(firebaseUID != null && latitude != null && longitude != null) {
+        if (firebaseUID != null && latitude != null && longitude != null) {
             // For every other user add a marker to map
             Marker playerMarker = new Marker(mapView);
             playerMarker.setPosition(new GeoPoint(latitude.getAsDouble(), longitude.getAsDouble()));
@@ -266,7 +263,7 @@ public class OSMActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
@@ -276,7 +273,7 @@ public class OSMActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use

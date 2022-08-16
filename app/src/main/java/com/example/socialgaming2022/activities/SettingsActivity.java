@@ -1,21 +1,21 @@
 package com.example.socialgaming2022.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
 import android.content.Intent;
+import android.icu.util.Currency;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.socialgaming2022.R;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = "SettingsActivity";
@@ -41,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Change night mode everytime the toggle gets clicked
         darkThemeSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if(compoundButton.isShown()) {
+            if (compoundButton.isShown()) {
                 if (isChecked && AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES)
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 else if (!isChecked && AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO)
@@ -49,31 +49,12 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        // Get the language spinner
-        Spinner languageSpinner = findViewById(R.id.languageSpinner);
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        languageSpinner.setAdapter(adapter);
-
-        // Get the selected language
-        languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String itemAtPosition = adapterView.getItemAtPosition(i).toString();
-                Log.d(TAG, "itemAtPosition: " + itemAtPosition);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        // Display local currency
+        Locale locale = Locale.getDefault();
+        Currency currency = Currency.getInstance(locale);
+        String symbol = currency.getSymbol();
+        final TextView currencyText = findViewById(R.id.currencyText);
+        currencyText.setText(getString(R.string.currency, symbol));
 
         // Get a firebaseAuth instance
         firebaseAuth = FirebaseAuth.getInstance();
@@ -82,7 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
 
         // If the user is logged in display settings information
-        if(firebaseUser == null)
+        if (firebaseUser == null)
             startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
     }
 }

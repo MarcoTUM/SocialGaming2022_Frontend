@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(String email, String password, String nickname) {
         // Register the user with firebase
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
-            if(task.isSuccessful()) {
+            if (task.isSuccessful()) {
                 Log.d(TAG, "registerUser: User successfully registered in firebase!");
                 updateFirebaseUserProfile(nickname);
                 registerUserInSpringBackend(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid(), nickname);
@@ -79,14 +79,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Update user profile
         currentUser.updateProfile(profileUpdates)
-            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Log.d(TAG, "User profile updated.");
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User profile updated.");
+                        }
                     }
-                }
-            });
+                });
     }
 
     private void registerUserInSpringBackend(String firebaseUID, String nickname) {
@@ -111,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
                         // Delete the Firebase account
                         Objects.requireNonNull(firebaseAuth.getCurrentUser()).delete()
                                 .addOnCompleteListener(task -> {
-                                    if(task.isSuccessful()) {
+                                    if (task.isSuccessful()) {
                                         Log.d(TAG, "Firebase user account deleted, after registerUserInSpringBackend failed!");
                                     } else {
                                         Log.d(TAG, "Firebase user not account deleted, after registerUserInSpringBackend failed!", task.getException());
